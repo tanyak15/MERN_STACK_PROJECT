@@ -13,10 +13,14 @@
     "axios": "^1.4.0",
     "firebase": "^9.23.0",
     "framer-motion": "^10.12.18",
+    "moment": "^2.29.4",
+    "protected-route-react": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-h5-audio-player": "^3.8.6",
     "react-icons": "^4.10.1",
-    "react-router-dom": "^6.14.1"
+    "react-router-dom": "^6.14.1",
+    "tailwind-scrollbar": "^3.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

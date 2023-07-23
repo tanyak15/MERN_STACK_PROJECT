@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useStateValue } from "../contexts/StateProvider";
@@ -9,7 +9,7 @@ const FilterButtons = ({ filterData, flag }) => {
   const [filterMenu, setFilterMenu] = useState(false);
   const [{ artistFilter, albumFilter, filterTerm, languageFilter }, dispatch] =
     useStateValue();
-
+  useEffect(() => {}, [artistFilter, albumFilter, filterTerm, languageFilter]);
   const updateFilterButton = (name) => {
     setFilterMenu(false);
     setFilterName(name);

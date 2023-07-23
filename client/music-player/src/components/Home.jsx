@@ -34,7 +34,7 @@ const Home = () => {
         });
       });
     }
-  }, []);
+  }, [allSongs, dispatch]);
 
   useEffect(() => {
     if (searchTerm.length > 0) {
@@ -49,46 +49,46 @@ const Home = () => {
     } else {
       setFilteredSongs(null);
     }
-  }, [searchTerm]);
+  }, [allSongs, artistFilter, searchTerm]);
 
   useEffect(() => {
     const filtered = allSongs?.filter((data) => data.artist === artistFilter);
-    if (filtered) {
+    if (artistFilter && filtered) {
       setFilteredSongs(filtered);
     } else {
       setFilteredSongs(null);
     }
-  }, [artistFilter]);
+  }, [allSongs, artistFilter]);
 
   useEffect(() => {
     const filtered = allSongs?.filter(
       (data) => data?.category?.toLowerCase() === filterTerm
     );
-    if (filtered) {
+    if (allSongs && filtered) {
       setFilteredSongs(filtered);
     } else {
       setFilteredSongs(null);
     }
-  }, [filterTerm]);
+  }, [allSongs, filterTerm]);
 
   useEffect(() => {
     const filtered = allSongs?.filter((data) => data.album === albumFilter);
-    if (filtered) {
+    if (albumFilter && filtered) {
       setFilteredSongs(filtered);
     } else {
       setFilteredSongs(null);
     }
-  }, [albumFilter]);
+  }, [albumFilter, allSongs]);
   useEffect(() => {
     const filtered = allSongs?.filter(
       (data) => data.language === languageFilter
     );
-    if (filtered) {
+    if (languageFilter &&  filtered) {
       setFilteredSongs(filtered);
     } else {
       setFilteredSongs(null);
     }
-  }, [languageFilter]);
+  }, [allSongs, languageFilter]);
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary">

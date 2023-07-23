@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { actionType } from "../contexts/reducer";
 import { useStateValue } from "../contexts/StateProvider";
-import { getAllAlbums, getAllArtist, getAllSongs } from "../api/index";
+import { getAllAlbums, getAllArtist } from "../api/index";
 import { filterByLanguage, filters } from "../utils/supportfunctions";
 import FilterButtonGit from "./FilterButtonGit";
 import { MdClearAll } from "react-icons/md";
 import { motion } from "framer-motion";
 
 const Filter = ({ setFilteredSongs }) => {
-  const [{ filterTerm, allArtists, allAlbums }, dispatch] = useStateValue();
+  const [
+    {
+      filterTerm,
+      allArtists,
+      allAlbums,
+      artistFilter,
+      albumFilter,
+      languageFilter,
+    },
+    dispatch,
+  ] = useStateValue();
 
   useEffect(() => {
     if (!allArtists) {
@@ -22,7 +32,15 @@ const Filter = ({ setFilteredSongs }) => {
         dispatch({ type: actionType.SET_ALL_ALBUMS, allAlbums: data });
       });
     }
-  }, []);
+  }, [
+    allAlbums,
+    allArtists,
+    dispatch,
+    languageFilter,
+    filterTerm,
+    artistFilter,
+    albumFilter,
+  ]);
 
   const updateFilter = (value) => {
     dispatch({
