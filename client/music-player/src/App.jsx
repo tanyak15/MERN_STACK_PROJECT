@@ -9,6 +9,8 @@ import { validateUser } from "./api";
 import { useStateValue } from "./contexts/StateProvider";
 import { actionType } from "./contexts/reducer";
 
+import { ProtectedRoute } from "protected-route-react";
+
 const App = () => {
   const firebaseAuth = getAuth(app);
   const navigate = useNavigate();
@@ -29,7 +31,7 @@ const App = () => {
         userCred.getIdToken().then((token) => {
           // console.log("🤯🤯🤯" + token);
           validateUser(token).then((data) => {
-            // console.log(data);
+            console.log("userDataFromBackend", data);
             dispatch({
               type: actionType.SET_USER,
               user: data,
@@ -47,15 +49,41 @@ const App = () => {
         navigate("/login");
       }
     });
-  }, []);
+  }, [dispatch, firebaseAuth, navigate]);
 
   return (
     <AnimatePresence wait>
       <div className="h-auto min-w -[680px] bg-violet-100 flex justify-center items-center">
         <Routes>
-          <Route path="/login" element={<Login setAuth={setAuth} />}></Route>
-          <Route path="/*" element={<Home />}></Route>
-          <Route path="/dashboard/*" element={<Dashboard />}></Route>
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute isAuthenticated={!auth} redirect="/home">
+                <Login setAuth={setAuth} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              <ProtectedRoute isAuthenticated={auth} redirect="/login">
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/*"
+            element={
+              <ProtectedRoute
+                isAuthenticated={auth}
+                adminRoute={true}
+                isAdmin={user && user?.role === "admin"}
+                redirectAdmin="/"
+              >
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         {isSongPlaying && (
           <motion.div

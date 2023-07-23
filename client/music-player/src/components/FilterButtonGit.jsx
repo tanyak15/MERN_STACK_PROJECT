@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 
 import { motion } from "framer-motion";
@@ -9,7 +9,37 @@ const FilterButtonGit = ({ filterData, flag }) => {
   const [filterName, setFilterName] = useState(null);
   const [filterMenu, setFilterMenu] = useState(false);
 
-  const [{ artistFilter, albumFilter, filterTerm }, dispatch] = useStateValue();
+  const [{ artistFilter, albumFilter, filterTerm, languageFilter }, dispatch] =
+    useStateValue();
+
+  useEffect(() => {
+    if (flag === "Artist" && artistFilter === null) {
+      setFilterName(null);
+      setFilterMenu(false);
+    }
+    if (flag === "Language" && languageFilter === null) {
+      setFilterName(null);
+      setFilterMenu(false);
+    }
+
+    if (flag === "Albums" && albumFilter === null) {
+      setFilterName(null);
+      setFilterMenu(false);
+    }
+
+    if (flag === "Category" && filterTerm === null) {
+      setFilterName(null);
+      setFilterMenu(false);
+    }
+  }, [
+    filterName,
+    artistFilter,
+    albumFilter,
+    filterTerm,
+    languageFilter,
+    flag,
+    dispatch,
+  ]);
 
   const updateFilterButton = (name) => {
     setFilterName(name);

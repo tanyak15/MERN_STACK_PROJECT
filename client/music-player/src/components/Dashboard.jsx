@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Header from "./Header";
 import { NavLink, Route, Routes } from "react-router-dom";
 
@@ -55,7 +55,7 @@ const Dashboard = () => {
         dispatch({ type: actionType.SET_ALL_ALBUMS, allAlbums: data });
       });
     }
-  }, []);
+  }, [allAlbums, allArtists, allSongs, allUsers, dispatch]);
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center bg-primary">

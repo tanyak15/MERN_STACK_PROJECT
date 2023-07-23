@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useStateValue } from "../contexts/StateProvider";
 
-import { motion } from "framer-motion";
-import { MdDelete } from "react-icons/md";
 import { actionType } from "../contexts/reducer";
 import { getAllAlbums } from "../api/index";
 import SongCard from "./SongCard";
@@ -17,7 +15,7 @@ const DashboardAlbums = () => {
         dispatch({ type: actionType.SET_ALL_ALBUMS, allAlbums: data });
       });
     }
-  }, []);
+  }, [allAlbums, dispatch]);
 
   return (
     <div className="w-full p-4 flex items-center justify-center flex-col">
@@ -32,11 +30,13 @@ const DashboardAlbums = () => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 export const AlbumContainer = ({ data }) => {
   return (
     <div className="w-full flex flex-wrap gap-3 items-center justify-evenly">
       {data &&
-        data.map((song, i) => (
+        // eslint-disable-next-line react/prop-types
+        data?.map((song, i) => (
           <SongCard key={song._id} data={song} index={i} type="album" />
         ))}
     </div>

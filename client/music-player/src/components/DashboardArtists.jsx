@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 import { useStateValue } from "../contexts/StateProvider";
-import { Link } from "react-router-dom";
-import { IoLogoInstagram, IoLogoTwitter } from "react-icons/io5";
-import { MdDelete } from "react-icons/md";
 import { getAllArtist } from "../api/index";
 import { actionType } from "../contexts/reducer";
 import SongCard from "./SongCard";
@@ -19,7 +15,7 @@ const DashboardArtists = () => {
         dispatch({ type: actionType.SET_ALL_ARTISTS, allArtists: data });
       });
     }
-  }, []);
+  }, [allArtists, dispatch]);
 
   return (
     <div className="w-full p-4 flex items-center justify-center flex-col">
@@ -34,11 +30,13 @@ const DashboardArtists = () => {
   );
 };
 
+// eslint-disable-next-line react/prop-types
 export const ArtistContainer = ({ data }) => {
   return (
     <div className="w-full flex flex-wrap gap-3 items-center justify-evenly">
       {data &&
-        data.map((song, i) => (
+        // eslint-disable-next-line react/prop-types
+        data?.map((song, i) => (
           <SongCard key={song._id} data={song} index={i} type="artist" />
         ))}
     </div>
