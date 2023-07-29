@@ -28,7 +28,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center w-full p-4 md:py-2 md:px-6">
+    <header className="flex flex-row items-center w-full p-4 md:py-2 md:px-6">
       <NavLink to="/">
         <img src={Logo} alt="Logo" className="w-16" />
       </NavLink>
@@ -44,7 +44,7 @@ const Header = () => {
             Home
           </NavLink>
         </li>
-        <li className="mx-5 text-lg">
+        {/* <li className="mx-5 text-lg">
           <NavLink
             to={"/musics"}
             className={({ isActive }) =>
@@ -53,8 +53,8 @@ const Header = () => {
           >
             Musics
           </NavLink>
-        </li>
-        <li className="mx-5 text-lg">
+        </li> */}
+        {/* <li className="mx-5 text-lg">
           <NavLink
             to={"/premium"}
             className={({ isActive }) =>
@@ -63,7 +63,7 @@ const Header = () => {
           >
             Premium
           </NavLink>
-        </li>
+        </li> */}
         <li className="mx-5 text-lg">
           <NavLink
             to={"/contact"}

@@ -3,6 +3,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { Dashboard, Home, Login, MusicPlayer } from "./components";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { validateUser } from "./api";
@@ -10,6 +12,7 @@ import { useStateValue } from "./contexts/StateProvider";
 import { actionType } from "./contexts/reducer";
 
 import { ProtectedRoute } from "protected-route-react";
+import ContactUs from "./components/ContactUs";
 
 const App = () => {
   const firebaseAuth = getAuth(app);
@@ -18,6 +21,7 @@ const App = () => {
   // state , dispatch fn
   const [{ user, isSongPlaying }, dispatch] = useStateValue();
   // console.log("INDEX :", isSongPlaying);
+  // console.log("USER:", user);
 
   const [auth, setAuth] = useState(
     false || window.localStorage.getItem("auth") === "true"
@@ -31,7 +35,7 @@ const App = () => {
         userCred.getIdToken().then((token) => {
           // console.log("🤯🤯🤯" + token);
           validateUser(token).then((data) => {
-            console.log("userDataFromBackend", data);
+            // console.log("userDataFromBackend", data);
             dispatch({
               type: actionType.SET_USER,
               user: data,
@@ -40,6 +44,7 @@ const App = () => {
         });
       } else {
         // 1. set auth state as false and reroute the user to login screen
+
         setAuth(false);
         dispatch({
           type: actionType.SET_USER,
@@ -53,7 +58,7 @@ const App = () => {
 
   return (
     <AnimatePresence wait>
-      <div className="h-auto min-w -[680px] bg-violet-100 flex justify-center items-center">
+      <div className="h-auto min-w -[680px] flex flex-col justify-center items-center">
         <Routes>
           <Route
             path="/login"
@@ -77,14 +82,16 @@ const App = () => {
               <ProtectedRoute
                 isAuthenticated={auth}
                 adminRoute={true}
-                isAdmin={user && user?.role === "admin"}
+                isAdmin={user && user.user?.role === "admin"}
                 redirectAdmin="/"
               >
                 <Dashboard />
               </ProtectedRoute>
             }
           />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
+
         {isSongPlaying && (
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -94,6 +101,7 @@ const App = () => {
             <MusicPlayer />
           </motion.div>
         )}
+        <ToastContainer />
       </div>
     </AnimatePresence>
   );

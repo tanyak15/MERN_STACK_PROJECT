@@ -125,3 +125,17 @@ export const deleteArtistById = async (id) => {
     return null;
   }
 };
+
+export const sendMail = async (name, email, message) => {
+  try {
+    const res = await axios.post(`${baseUrl}api/others/contact`, {
+      name,
+      email,
+      message,
+    });
+
+    return res.data;
+  } catch (error) {
+    return null;
+  }
+};
