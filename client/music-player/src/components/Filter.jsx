@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { actionType } from "../contexts/reducer";
 import { useStateValue } from "../contexts/StateProvider";
 import { getAllAlbums, getAllArtist } from "../api/index";
-import { filterByLanguage, filters } from "../utils/supportfunctions";
+import { filterByLanguage, filters } from "../utils/supportFunctions";
 import FilterButtonGit from "./FilterButtonGit";
 import { MdClearAll } from "react-icons/md";
 import { motion } from "framer-motion";

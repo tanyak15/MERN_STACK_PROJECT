@@ -14,8 +14,6 @@ const ContactUs = () => {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
 
-  // const notify = () => toast("!");
-
   const handelSubmit = async (e) => {
     e.preventDefault();
     await sendMail(name, email, msg)

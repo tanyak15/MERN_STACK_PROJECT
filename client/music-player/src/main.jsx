@@ -7,7 +7,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { StateProvider } from "./contexts/StateProvider";
 import { initialState } from "./contexts/initialState";
 import reducer from "./contexts/reducer";
+import { config } from "dotenv";
 
+// config();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

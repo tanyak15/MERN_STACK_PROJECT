@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localHost:4000/";
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export const validateUser = async (token) => {
   try {
